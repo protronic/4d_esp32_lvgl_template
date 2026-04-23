@@ -34,6 +34,8 @@ void my_disp_flush_cb(lv_display_t *disp, const lv_area_t *area, uint8_t *color_
 
 void my_touchpad_read(lv_indev_t * indev, lv_indev_data_t * data)
 {
+  static bool wasTouched = false;
+
   if (gfx.touch_Update())
   {
     int touchStatus = gfx.touch_GetPen();
@@ -42,10 +44,29 @@ void my_touchpad_read(lv_indev_t * indev, lv_indev_data_t * data)
       data->state = LV_INDEV_STATE_PR;
       data->point.x = gfx.touch_GetX();
       data->point.y = gfx.touch_GetY();
+
+      if (!wasTouched)
+      {
+        Serial.print("Touch press: ");
+        Serial.print(data->point.x);
+        Serial.print(", ");
+        Serial.println(data->point.y);
+      }
+
+      wasTouched = true;
     }
-    else if (touchStatus == 2) data->state = LV_INDEV_STATE_REL;
+    else if (touchStatus == 2)
+    {
+      data->state = LV_INDEV_STATE_REL;
+      if (wasTouched) Serial.println("Touch release");
+      wasTouched = false;
+    }
   }
-  else data->state = LV_INDEV_STATE_REL;
+  else
+  {
+    data->state = LV_INDEV_STATE_REL;
+    wasTouched = false;
+  }
 }
 
 void setup()
