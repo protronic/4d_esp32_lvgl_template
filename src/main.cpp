@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <lvgl.h>
-#include "gfx4desp32_gen4_ESP32_43T.h"
+#include "gfx4desp32_gen4_ESP32_70CT.h"
 
-gfx4desp32_gen4_ESP32_43T gfx = gfx4desp32_gen4_ESP32_43T();
+gfx4desp32_gen4_ESP32_70CT gfx = gfx4desp32_gen4_ESP32_70CT();
 
 
 //Based on code from https://forum.4dsystems.com.au/node/80632
