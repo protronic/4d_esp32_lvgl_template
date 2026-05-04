@@ -200,21 +200,26 @@ void init_ui()
   lv_obj_set_pos(header, 0, 0);
   lv_obj_set_style_radius(header, 0, LV_PART_MAIN);
   lv_obj_set_style_border_width(header, 0, LV_PART_MAIN);
-  lv_obj_set_style_bg_opa(header, LV_OPA_70, LV_PART_MAIN);
+  lv_obj_set_style_bg_opa(header, LV_OPA_COVER, LV_PART_MAIN);
   lv_obj_set_style_bg_color(header, lv_color_hex(0x072032), LV_PART_MAIN);
   lv_obj_set_style_pad_hor(header, 14, LV_PART_MAIN);
+  lv_obj_clear_flag(header, LV_OBJ_FLAG_SCROLLABLE);
 
   lv_obj_t *title = lv_label_create(header);
   lv_label_set_text(title, "LVGL Showcase");
   lv_obj_align(title, LV_ALIGN_LEFT_MID, 0, 0);
+  lv_obj_set_style_text_color(title, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
 
   status_clock_label = lv_label_create(header);
   lv_label_set_text(status_clock_label, "00:00");
   lv_obj_align(status_clock_label, LV_ALIGN_RIGHT_MID, 0, 0);
+  lv_obj_set_style_text_color(status_clock_label, lv_color_hex(0xFFFFFF), LV_PART_MAIN);
 
   lv_obj_t *tabview = lv_tabview_create(scr);
   lv_obj_set_size(tabview, lv_pct(100), screenHeight - 52);
   lv_obj_set_pos(tabview, 0, 52);
+
+  lv_obj_move_foreground(header);
 
   lv_obj_t *tab_home = lv_tabview_add_tab(tabview, "Home");
   lv_obj_t *tab_controls = lv_tabview_add_tab(tabview, "Controls");
