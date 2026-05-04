@@ -21,19 +21,20 @@ static lv_obj_t *load_bar;
 static lv_obj_t *load_label;
 static lv_timer_t *ui_timer;
 static uint16_t demo_seconds;
+static int32_t brightness_value = 0;
 
 void init_ui(void);
 
 static void on_brightness_changed(lv_event_t *e)
 {
   lv_obj_t *slider = (lv_obj_t *)lv_event_get_target(e);
-  int value = lv_slider_get_value(slider);
+  brightness_value = lv_slider_get_value(slider);
 
   if (brightness_value_label)
   {
-    lv_label_set_text_fmt(brightness_value_label, "%d%%", value);
+    lv_label_set_text_fmt(brightness_value_label, "%d%%", brightness_value);
   }
-  Serial.printf("Brightness changed: %d%%\n", value);
+  Serial.printf("Brightness changed: %d%%\n", brightness_value);
 }
 
 static void on_nav_button_clicked(lv_event_t *e)
